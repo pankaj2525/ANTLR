@@ -70,12 +70,17 @@ DELETEMANY
 :
 	D E L E T E M A N Y
 ;
+AGGREGATE
+:
+	A G G R E G A T E
+;
 // Identifiers
 
 ID
 :
 	ALPHA_LITERAL
 ;
+
 
 // Charsets
 
@@ -237,11 +242,7 @@ fragment
 ALPHA_LITERAL
 :
 	(
-		[a-zA-Z_] [a-zA-Z_0-9]*
-	)
-	|
-	(
-		[a-zA-Z_] ~[$]
+		[_$]? [a-zA-Z_0-9]*
 	)
 ;
 fragment 

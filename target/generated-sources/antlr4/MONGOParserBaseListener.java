@@ -184,6 +184,18 @@ public class MONGOParserBaseListener implements MONGOParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterAggregate_statement(@NotNull MONGOParser.Aggregate_statementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAggregate_statement(@NotNull MONGOParser.Aggregate_statementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterJson_input(@NotNull MONGOParser.Json_inputContext ctx) { }
 	/**
 	 * {@inheritDoc}

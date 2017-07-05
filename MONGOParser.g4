@@ -11,17 +11,50 @@ mongo_statements
 
 mongo_statement
 :
-	intialQuerry dml_statement (type1 | type2)
-	| intialQuerry ID (type1 | type2)
+	intialQuerry dml_statement
+	(
+		type1
+		| type2
+	)
+	| intialQuerry aggregate_statement
+	(
+		type1
+		| type2
+	)
+	| intialQuerry ID
+	(
+		type1
+		| type2
+	)
+	
 ;
+
+aggregate_statement
+:
+	AGGREGATE
+;
+
 intialQuerry
 :
-db_name DOT collection_name (OPEN_ROUND_BRACKET STRING CLOSE_ROUND_BRACKET)? DOT 
+	db_name DOT collection_name
+	(
+		OPEN_ROUND_BRACKET STRING CLOSE_ROUND_BRACKET
+	)? DOT
 ;
-type1: OPEN_ROUND_BRACKET  json_input  CLOSE_ROUND_BRACKET 
+
+type1
+:
+	OPEN_ROUND_BRACKET json_input CLOSE_ROUND_BRACKET
 ;
-type2:OPEN_ROUND_BRACKET OPEN_SQUARE_BRACKET json_input CLOSE_SQUARE_BRACKET  (COMMAR_CHAR OPEN_CURLY_BRACKET json_input CLOSE_CURLY_BRACKET)* CLOSE_ROUND_BRACKET
+
+type2
+:
+	OPEN_ROUND_BRACKET OPEN_SQUARE_BRACKET json_input CLOSE_SQUARE_BRACKET
+	(
+		COMMAR_CHAR OPEN_CURLY_BRACKET json_input CLOSE_CURLY_BRACKET
+	)* CLOSE_ROUND_BRACKET
 ;
+
 dml_statement
 :
 	insert_statements
@@ -29,15 +62,17 @@ dml_statement
 	| delete_statements
 	| find_statements
 ;
-find_statements 
-: FIND
+
+find_statements
+:
+	FIND
 ;
 
 insert_statements
 :
-	INSERT 
-	|INSERTMANY
-	|INSERTONE
+	INSERT
+	| INSERTMANY
+	| INSERTONE
 ;
 
 update_statements
@@ -94,7 +129,10 @@ object
 
 pair
 :
-	(STRING | ID ) ISTO_CHAR value
+	(
+		STRING
+		| ID
+	) ISTO_CHAR value
 ;
 
 array

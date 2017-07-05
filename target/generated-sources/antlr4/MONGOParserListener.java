@@ -148,6 +148,16 @@ public interface MONGOParserListener extends ParseTreeListener {
 	 */
 	void exitIntialQuerry(@NotNull MONGOParser.IntialQuerryContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link MONGOParser#aggregate_statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterAggregate_statement(@NotNull MONGOParser.Aggregate_statementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MONGOParser#aggregate_statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitAggregate_statement(@NotNull MONGOParser.Aggregate_statementContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MONGOParser#json_input}.
 	 * @param ctx the parse tree
 	 */
