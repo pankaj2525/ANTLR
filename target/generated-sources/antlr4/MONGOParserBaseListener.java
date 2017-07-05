@@ -28,49 +28,85 @@ public class MONGOParserBaseListener implements MONGOParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterInsert_statement(@NotNull MONGOParser.Insert_statementContext ctx) { }
+	@Override public void enterType2(@NotNull MONGOParser.Type2Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitInsert_statement(@NotNull MONGOParser.Insert_statementContext ctx) { }
+	@Override public void exitType2(@NotNull MONGOParser.Type2Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterUpdate_one_statement(@NotNull MONGOParser.Update_one_statementContext ctx) { }
+	@Override public void enterInsert_statements(@NotNull MONGOParser.Insert_statementsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitUpdate_one_statement(@NotNull MONGOParser.Update_one_statementContext ctx) { }
+	@Override public void exitInsert_statements(@NotNull MONGOParser.Insert_statementsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDelete_one_statement(@NotNull MONGOParser.Delete_one_statementContext ctx) { }
+	@Override public void enterUpdate_statements(@NotNull MONGOParser.Update_statementsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDelete_one_statement(@NotNull MONGOParser.Delete_one_statementContext ctx) { }
+	@Override public void exitUpdate_statements(@NotNull MONGOParser.Update_statementsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTYPE2(@NotNull MONGOParser.TYPE2Context ctx) { }
+	@Override public void enterFind_statements(@NotNull MONGOParser.Find_statementsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTYPE2(@NotNull MONGOParser.TYPE2Context ctx) { }
+	@Override public void exitFind_statements(@NotNull MONGOParser.Find_statementsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterType1(@NotNull MONGOParser.Type1Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitType1(@NotNull MONGOParser.Type1Context ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPair(@NotNull MONGOParser.PairContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPair(@NotNull MONGOParser.PairContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDb_name(@NotNull MONGOParser.Db_nameContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDb_name(@NotNull MONGOParser.Db_nameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -88,37 +124,13 @@ public class MONGOParserBaseListener implements MONGOParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRoot(@NotNull MONGOParser.RootContext ctx) { }
+	@Override public void enterDml_statement(@NotNull MONGOParser.Dml_statementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRoot(@NotNull MONGOParser.RootContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterInsert_many_statement(@NotNull MONGOParser.Insert_many_statementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitInsert_many_statement(@NotNull MONGOParser.Insert_many_statementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterDelete_many_statement(@NotNull MONGOParser.Delete_many_statementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitDelete_many_statement(@NotNull MONGOParser.Delete_many_statementContext ctx) { }
+	@Override public void exitDml_statement(@NotNull MONGOParser.Dml_statementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -160,133 +172,13 @@ public class MONGOParserBaseListener implements MONGOParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTYPE1(@NotNull MONGOParser.TYPE1Context ctx) { }
+	@Override public void enterIntialQuerry(@NotNull MONGOParser.IntialQuerryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTYPE1(@NotNull MONGOParser.TYPE1Context ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterUpdate_statement(@NotNull MONGOParser.Update_statementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitUpdate_statement(@NotNull MONGOParser.Update_statementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterValue(@NotNull MONGOParser.ValueContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitValue(@NotNull MONGOParser.ValueContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterInsert_statements(@NotNull MONGOParser.Insert_statementsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitInsert_statements(@NotNull MONGOParser.Insert_statementsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterUpdate_statements(@NotNull MONGOParser.Update_statementsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitUpdate_statements(@NotNull MONGOParser.Update_statementsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterPair(@NotNull MONGOParser.PairContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitPair(@NotNull MONGOParser.PairContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterUpdate_many_statement(@NotNull MONGOParser.Update_many_statementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitUpdate_many_statement(@NotNull MONGOParser.Update_many_statementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterDb_name(@NotNull MONGOParser.Db_nameContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitDb_name(@NotNull MONGOParser.Db_nameContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterArray_input(@NotNull MONGOParser.Array_inputContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitArray_input(@NotNull MONGOParser.Array_inputContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterDml_statement(@NotNull MONGOParser.Dml_statementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitDml_statement(@NotNull MONGOParser.Dml_statementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterInsert_one_statement(@NotNull MONGOParser.Insert_one_statementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitInsert_one_statement(@NotNull MONGOParser.Insert_one_statementContext ctx) { }
+	@Override public void exitIntialQuerry(@NotNull MONGOParser.IntialQuerryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -299,6 +191,18 @@ public class MONGOParserBaseListener implements MONGOParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitJson_input(@NotNull MONGOParser.Json_inputContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterValue(@NotNull MONGOParser.ValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitValue(@NotNull MONGOParser.ValueContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
