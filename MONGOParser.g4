@@ -11,40 +11,92 @@ mongo_statements
 
 mongo_statement
 :
-	intialQuerry dml_statement (type1 | type2)
-	| intialQuerry ID (type1 | type2)
+	intialQuerry collection_methods (DOT  collection_methods)*
+	
 ;
+
+
+
+aggregate_statement
+:
+	AGGREGATE
+;
+
 intialQuerry
 :
-db_name DOT collection_name (OPEN_ROUND_BRACKET STRING CLOSE_ROUND_BRACKET)? DOT 
-;
-type1: OPEN_ROUND_BRACKET  json_input  CLOSE_ROUND_BRACKET 
-;
-type2:OPEN_ROUND_BRACKET OPEN_SQUARE_BRACKET json_input CLOSE_SQUARE_BRACKET  (COMMAR_CHAR OPEN_CURLY_BRACKET json_input CLOSE_CURLY_BRACKET)* CLOSE_ROUND_BRACKET
-;
-dml_statement
-:
-	insert_statements
-	| update_statements
-	| delete_statements
-	| find_statements
-;
-find_statements 
-: FIND
+	db_name DOT collection_name
+	(
+		OPEN_ROUND_BRACKET STRING CLOSE_ROUND_BRACKET
+	)? DOT
 ;
 
-insert_statements
+document
 :
-	INSERT 
-	|INSERTMANY
-	|INSERTONE
+	OPEN_ROUND_BRACKET json_input CLOSE_ROUND_BRACKET
 ;
 
-update_statements
+document_array
 :
-	UPDATEONE
+	OPEN_ROUND_BRACKET OPEN_SQUARE_BRACKET json_input CLOSE_SQUARE_BRACKET
+	(
+		COMMAR_CHAR OPEN_CURLY_BRACKET json_input CLOSE_CURLY_BRACKET
+	)* CLOSE_ROUND_BRACKET
+;
+
+collection_methods
+:
+	| single_doc_input_method document
+	| multiple_doc_input_method document_array
+	| single_or_multiple_doc_input_method
+	(
+		document
+		| document_array
+	)
+	| aggregate_statement parameter
+	| other_methods parameter
+;
+
+parameter
+:
+	OPEN_ROUND_BRACKET
+	(
+		value
+		| json_input
+		| OPEN_SQUARE_BRACKET json_input CLOSE_SQUARE_BRACKET
+		(
+			COMMAR_CHAR OPEN_CURLY_BRACKET json_input CLOSE_CURLY_BRACKET
+		)*
+	) CLOSE_ROUND_BRACKET
+;
+
+other_methods
+: ID
+;
+
+single_doc_input_method
+:
+	INSERTONE
+	| UPDATEONE
+	| DELETEONE
+;
+
+multiple_doc_input_method
+:
+	INSERTMANY
 	| UPDATEMANY
+	| DELETEMANY
+;
+
+single_or_multiple_doc_input_method
+:
+	FIND
+	| INSERT
 	| UPDATE
+;
+
+find_statements
+:
+	FIND
 ;
 
 delete_statements
@@ -94,7 +146,10 @@ object
 
 pair
 :
-	(STRING | ID ) ISTO_CHAR value
+	(
+		STRING
+		| ID
+	) ISTO_CHAR value
 ;
 
 array
@@ -115,6 +170,7 @@ value
 	| TRUE
 	| FALSE
 	| NULL
+	| ID
 	| DATE
 ;
 

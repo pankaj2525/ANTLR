@@ -16,32 +16,35 @@ public class MONGOParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		INSERTONE=5, DD=35, HH=36, UNDERSCORE=13, MILLISEC=32, ISTO_CHAR=21, COMMAR_CHAR=22, 
-		DELETEONE=10, SPACE=1, INSERTMANY=6, FIND=3, UPDATE=7, ID=12, CustomDate=31, 
-		CLOSE_SQUARE_BRACKET=18, MM=34, NUMBER=27, NULL=25, OPEN_ROUND_BRACKET=15, 
-		DATETYPE=30, DELETEMANY=11, DOT=14, TRUE=23, YYYY=33, SEC=38, CLOSE_ROUND_BRACKET=16, 
-		DATE=29, MIN=37, UPDATEONE=9, CLOSE_CURLY_BRACKET=20, UPDATEMANY=8, STRING=26, 
-		INSERT=4, FALSE=24, OPEN_SQUARE_BRACKET=17, DB=2, OPEN_CURLY_BRACKET=19, 
-		KEYWORDS=28;
+		INSERTONE=5, DD=36, HH=37, UNDERSCORE=14, MILLISEC=33, ISTO_CHAR=22, COMMAR_CHAR=23, 
+		DELETEONE=10, SPACE=1, INSERTMANY=6, AGGREGATE=12, FIND=3, UPDATE=7, ID=13, 
+		CustomDate=32, CLOSE_SQUARE_BRACKET=19, MM=35, NUMBER=28, NULL=26, OPEN_ROUND_BRACKET=16, 
+		DATETYPE=31, DELETEMANY=11, DOT=15, TRUE=24, YYYY=34, SEC=39, CLOSE_ROUND_BRACKET=17, 
+		DATE=30, MIN=38, UPDATEONE=9, CLOSE_CURLY_BRACKET=21, UPDATEMANY=8, STRING=27, 
+		INSERT=4, FALSE=25, OPEN_SQUARE_BRACKET=18, DB=2, OPEN_CURLY_BRACKET=20, 
+		KEYWORDS=29;
 	public static final String[] tokenNames = {
-		"<INVALID>", "SPACE", "DB", "FIND", "INSERT", "INSERTONE", "INSERTMANY", 
-		"UPDATE", "UPDATEMANY", "UPDATEONE", "DELETEONE", "DELETEMANY", "ID", 
-		"'_'", "'.'", "'('", "')'", "'['", "']'", "'{'", "'}'", "':'", "','", 
-		"'true'", "'false'", "'null'", "STRING", "NUMBER", "KEYWORDS", "DATE", 
-		"DATETYPE", "CustomDate", "MILLISEC", "YYYY", "MM", "DD", "HH", "MIN", 
-		"SEC"
+		"<INVALID>", "SPACE", "DB", "FIND", "'insert'", "'insertOne'", "'insertMany'", 
+		"'update'", "'updateMany'", "'updateOne'", "'deleteOne'", "'deleteMany'", 
+		"'aggregate'", "ID", "'_'", "'.'", "'('", "')'", "'['", "']'", "'{'", 
+		"'}'", "':'", "','", "'true'", "'false'", "'null'", "STRING", "NUMBER", 
+		"KEYWORDS", "DATE", "DATETYPE", "CustomDate", "MILLISEC", "YYYY", "MM", 
+		"DD", "HH", "MIN", "SEC"
 	};
 	public static final int
-		RULE_mongo_statements = 0, RULE_mongo_statement = 1, RULE_intialQuerry = 2, 
-		RULE_type1 = 3, RULE_type2 = 4, RULE_dml_statement = 5, RULE_find_statements = 6, 
-		RULE_insert_statements = 7, RULE_update_statements = 8, RULE_delete_statements = 9, 
-		RULE_json_input = 10, RULE_db_name = 11, RULE_collection_name = 12, RULE_json = 13, 
-		RULE_object = 14, RULE_pair = 15, RULE_array = 16, RULE_value = 17;
+		RULE_mongo_statements = 0, RULE_mongo_statement = 1, RULE_aggregate_statement = 2, 
+		RULE_intialQuerry = 3, RULE_document = 4, RULE_document_array = 5, RULE_collection_methods = 6, 
+		RULE_parameter = 7, RULE_other_methods = 8, RULE_single_doc_input_method = 9, 
+		RULE_multiple_doc_input_method = 10, RULE_single_or_multiple_doc_input_method = 11, 
+		RULE_find_statements = 12, RULE_delete_statements = 13, RULE_json_input = 14, 
+		RULE_db_name = 15, RULE_collection_name = 16, RULE_json = 17, RULE_object = 18, 
+		RULE_pair = 19, RULE_array = 20, RULE_value = 21;
 	public static final String[] ruleNames = {
-		"mongo_statements", "mongo_statement", "intialQuerry", "type1", "type2", 
-		"dml_statement", "find_statements", "insert_statements", "update_statements", 
-		"delete_statements", "json_input", "db_name", "collection_name", "json", 
-		"object", "pair", "array", "value"
+		"mongo_statements", "mongo_statement", "aggregate_statement", "intialQuerry", 
+		"document", "document_array", "collection_methods", "parameter", "other_methods", 
+		"single_doc_input_method", "multiple_doc_input_method", "single_or_multiple_doc_input_method", 
+		"find_statements", "delete_statements", "json_input", "db_name", "collection_name", 
+		"json", "object", "pair", "array", "value"
 	};
 
 	@Override
@@ -87,7 +90,7 @@ public class MONGOParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(36); mongo_statement();
+			setState(44); mongo_statement();
 			}
 		}
 		catch (RecognitionException re) {
@@ -102,18 +105,18 @@ public class MONGOParser extends Parser {
 	}
 
 	public static class Mongo_statementContext extends ParserRuleContext {
-		public Type1Context type1() {
-			return getRuleContext(Type1Context.class,0);
-		}
-		public TerminalNode ID() { return getToken(MONGOParser.ID, 0); }
+		public List<TerminalNode> DOT() { return getTokens(MONGOParser.DOT); }
 		public IntialQuerryContext intialQuerry() {
 			return getRuleContext(IntialQuerryContext.class,0);
 		}
-		public Dml_statementContext dml_statement() {
-			return getRuleContext(Dml_statementContext.class,0);
+		public List<Collection_methodsContext> collection_methods() {
+			return getRuleContexts(Collection_methodsContext.class);
 		}
-		public Type2Context type2() {
-			return getRuleContext(Type2Context.class,0);
+		public TerminalNode DOT(int i) {
+			return getToken(MONGOParser.DOT, i);
+		}
+		public Collection_methodsContext collection_methods(int i) {
+			return getRuleContext(Collection_methodsContext.class,i);
 		}
 		public Mongo_statementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -132,49 +135,62 @@ public class MONGOParser extends Parser {
 	public final Mongo_statementContext mongo_statement() throws RecognitionException {
 		Mongo_statementContext _localctx = new Mongo_statementContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_mongo_statement);
+		int _la;
 		try {
-			setState(50);
-			switch ( getInterpreter().adaptivePredict(_input,2,_ctx) ) {
-			case 1:
-				enterOuterAlt(_localctx, 1);
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(46); intialQuerry();
+			setState(47); collection_methods();
+			setState(52);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			while (_la==DOT) {
 				{
-				setState(38); intialQuerry();
-				setState(39); dml_statement();
-				setState(42);
-				switch ( getInterpreter().adaptivePredict(_input,0,_ctx) ) {
-				case 1:
-					{
-					setState(40); type1();
-					}
-					break;
-				case 2:
-					{
-					setState(41); type2();
-					}
-					break;
-				}
-				}
-				break;
-			case 2:
-				enterOuterAlt(_localctx, 2);
 				{
-				setState(44); intialQuerry();
-				setState(45); match(ID);
-				setState(48);
-				switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
-				case 1:
-					{
-					setState(46); type1();
-					}
-					break;
-				case 2:
-					{
-					setState(47); type2();
-					}
-					break;
+				setState(48); match(DOT);
+				setState(49); collection_methods();
 				}
 				}
-				break;
+				setState(54);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class Aggregate_statementContext extends ParserRuleContext {
+		public TerminalNode AGGREGATE() { return getToken(MONGOParser.AGGREGATE, 0); }
+		public Aggregate_statementContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_aggregate_statement; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MONGOParserListener ) ((MONGOParserListener)listener).enterAggregate_statement(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MONGOParserListener ) ((MONGOParserListener)listener).exitAggregate_statement(this);
+		}
+	}
+
+	public final Aggregate_statementContext aggregate_statement() throws RecognitionException {
+		Aggregate_statementContext _localctx = new Aggregate_statementContext(_ctx, getState());
+		enterRule(_localctx, 4, RULE_aggregate_statement);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(55); match(AGGREGATE);
 			}
 		}
 		catch (RecognitionException re) {
@@ -218,25 +234,25 @@ public class MONGOParser extends Parser {
 
 	public final IntialQuerryContext intialQuerry() throws RecognitionException {
 		IntialQuerryContext _localctx = new IntialQuerryContext(_ctx, getState());
-		enterRule(_localctx, 4, RULE_intialQuerry);
+		enterRule(_localctx, 6, RULE_intialQuerry);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(52); db_name();
-			setState(53); match(DOT);
-			setState(54); collection_name();
-			setState(58);
+			setState(57); db_name();
+			setState(58); match(DOT);
+			setState(59); collection_name();
+			setState(63);
 			_la = _input.LA(1);
 			if (_la==OPEN_ROUND_BRACKET) {
 				{
-				setState(55); match(OPEN_ROUND_BRACKET);
-				setState(56); match(STRING);
-				setState(57); match(CLOSE_ROUND_BRACKET);
+				setState(60); match(OPEN_ROUND_BRACKET);
+				setState(61); match(STRING);
+				setState(62); match(CLOSE_ROUND_BRACKET);
 				}
 			}
 
-			setState(60); match(DOT);
+			setState(65); match(DOT);
 			}
 		}
 		catch (RecognitionException re) {
@@ -250,35 +266,35 @@ public class MONGOParser extends Parser {
 		return _localctx;
 	}
 
-	public static class Type1Context extends ParserRuleContext {
+	public static class DocumentContext extends ParserRuleContext {
 		public TerminalNode CLOSE_ROUND_BRACKET() { return getToken(MONGOParser.CLOSE_ROUND_BRACKET, 0); }
 		public TerminalNode OPEN_ROUND_BRACKET() { return getToken(MONGOParser.OPEN_ROUND_BRACKET, 0); }
 		public Json_inputContext json_input() {
 			return getRuleContext(Json_inputContext.class,0);
 		}
-		public Type1Context(ParserRuleContext parent, int invokingState) {
+		public DocumentContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_type1; }
+		@Override public int getRuleIndex() { return RULE_document; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MONGOParserListener ) ((MONGOParserListener)listener).enterType1(this);
+			if ( listener instanceof MONGOParserListener ) ((MONGOParserListener)listener).enterDocument(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MONGOParserListener ) ((MONGOParserListener)listener).exitType1(this);
+			if ( listener instanceof MONGOParserListener ) ((MONGOParserListener)listener).exitDocument(this);
 		}
 	}
 
-	public final Type1Context type1() throws RecognitionException {
-		Type1Context _localctx = new Type1Context(_ctx, getState());
-		enterRule(_localctx, 6, RULE_type1);
+	public final DocumentContext document() throws RecognitionException {
+		DocumentContext _localctx = new DocumentContext(_ctx, getState());
+		enterRule(_localctx, 8, RULE_document);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(62); match(OPEN_ROUND_BRACKET);
-			setState(63); json_input();
-			setState(64); match(CLOSE_ROUND_BRACKET);
+			setState(67); match(OPEN_ROUND_BRACKET);
+			setState(68); json_input();
+			setState(69); match(CLOSE_ROUND_BRACKET);
 			}
 		}
 		catch (RecognitionException re) {
@@ -292,7 +308,7 @@ public class MONGOParser extends Parser {
 		return _localctx;
 	}
 
-	public static class Type2Context extends ParserRuleContext {
+	public static class Document_arrayContext extends ParserRuleContext {
 		public TerminalNode COMMAR_CHAR(int i) {
 			return getToken(MONGOParser.COMMAR_CHAR, i);
 		}
@@ -315,48 +331,48 @@ public class MONGOParser extends Parser {
 		public TerminalNode CLOSE_CURLY_BRACKET(int i) {
 			return getToken(MONGOParser.CLOSE_CURLY_BRACKET, i);
 		}
-		public Type2Context(ParserRuleContext parent, int invokingState) {
+		public Document_arrayContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_type2; }
+		@Override public int getRuleIndex() { return RULE_document_array; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MONGOParserListener ) ((MONGOParserListener)listener).enterType2(this);
+			if ( listener instanceof MONGOParserListener ) ((MONGOParserListener)listener).enterDocument_array(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MONGOParserListener ) ((MONGOParserListener)listener).exitType2(this);
+			if ( listener instanceof MONGOParserListener ) ((MONGOParserListener)listener).exitDocument_array(this);
 		}
 	}
 
-	public final Type2Context type2() throws RecognitionException {
-		Type2Context _localctx = new Type2Context(_ctx, getState());
-		enterRule(_localctx, 8, RULE_type2);
+	public final Document_arrayContext document_array() throws RecognitionException {
+		Document_arrayContext _localctx = new Document_arrayContext(_ctx, getState());
+		enterRule(_localctx, 10, RULE_document_array);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(66); match(OPEN_ROUND_BRACKET);
-			setState(67); match(OPEN_SQUARE_BRACKET);
-			setState(68); json_input();
-			setState(69); match(CLOSE_SQUARE_BRACKET);
-			setState(77);
+			setState(71); match(OPEN_ROUND_BRACKET);
+			setState(72); match(OPEN_SQUARE_BRACKET);
+			setState(73); json_input();
+			setState(74); match(CLOSE_SQUARE_BRACKET);
+			setState(82);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==COMMAR_CHAR) {
 				{
 				{
-				setState(70); match(COMMAR_CHAR);
-				setState(71); match(OPEN_CURLY_BRACKET);
-				setState(72); json_input();
-				setState(73); match(CLOSE_CURLY_BRACKET);
+				setState(75); match(COMMAR_CHAR);
+				setState(76); match(OPEN_CURLY_BRACKET);
+				setState(77); json_input();
+				setState(78); match(CLOSE_CURLY_BRACKET);
 				}
 				}
-				setState(79);
+				setState(84);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(80); match(CLOSE_ROUND_BRACKET);
+			setState(85); match(CLOSE_ROUND_BRACKET);
 			}
 		}
 		catch (RecognitionException re) {
@@ -370,70 +386,378 @@ public class MONGOParser extends Parser {
 		return _localctx;
 	}
 
-	public static class Dml_statementContext extends ParserRuleContext {
-		public Find_statementsContext find_statements() {
-			return getRuleContext(Find_statementsContext.class,0);
+	public static class Collection_methodsContext extends ParserRuleContext {
+		public Single_doc_input_methodContext single_doc_input_method() {
+			return getRuleContext(Single_doc_input_methodContext.class,0);
 		}
-		public Update_statementsContext update_statements() {
-			return getRuleContext(Update_statementsContext.class,0);
+		public ParameterContext parameter() {
+			return getRuleContext(ParameterContext.class,0);
 		}
-		public Insert_statementsContext insert_statements() {
-			return getRuleContext(Insert_statementsContext.class,0);
+		public Aggregate_statementContext aggregate_statement() {
+			return getRuleContext(Aggregate_statementContext.class,0);
 		}
-		public Delete_statementsContext delete_statements() {
-			return getRuleContext(Delete_statementsContext.class,0);
+		public Other_methodsContext other_methods() {
+			return getRuleContext(Other_methodsContext.class,0);
 		}
-		public Dml_statementContext(ParserRuleContext parent, int invokingState) {
+		public DocumentContext document() {
+			return getRuleContext(DocumentContext.class,0);
+		}
+		public Single_or_multiple_doc_input_methodContext single_or_multiple_doc_input_method() {
+			return getRuleContext(Single_or_multiple_doc_input_methodContext.class,0);
+		}
+		public Multiple_doc_input_methodContext multiple_doc_input_method() {
+			return getRuleContext(Multiple_doc_input_methodContext.class,0);
+		}
+		public Document_arrayContext document_array() {
+			return getRuleContext(Document_arrayContext.class,0);
+		}
+		public Collection_methodsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_dml_statement; }
+		@Override public int getRuleIndex() { return RULE_collection_methods; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MONGOParserListener ) ((MONGOParserListener)listener).enterDml_statement(this);
+			if ( listener instanceof MONGOParserListener ) ((MONGOParserListener)listener).enterCollection_methods(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MONGOParserListener ) ((MONGOParserListener)listener).exitDml_statement(this);
+			if ( listener instanceof MONGOParserListener ) ((MONGOParserListener)listener).exitCollection_methods(this);
 		}
 	}
 
-	public final Dml_statementContext dml_statement() throws RecognitionException {
-		Dml_statementContext _localctx = new Dml_statementContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_dml_statement);
+	public final Collection_methodsContext collection_methods() throws RecognitionException {
+		Collection_methodsContext _localctx = new Collection_methodsContext(_ctx, getState());
+		enterRule(_localctx, 12, RULE_collection_methods);
 		try {
-			setState(86);
+			setState(105);
 			switch (_input.LA(1)) {
-			case INSERT:
-			case INSERTONE:
-			case INSERTMANY:
+			case EOF:
+			case DOT:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(82); insert_statements();
 				}
 				break;
-			case UPDATE:
-			case UPDATEMANY:
+			case INSERTONE:
 			case UPDATEONE:
+			case DELETEONE:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(83); update_statements();
+				setState(88); single_doc_input_method();
+				setState(89); document();
 				}
 				break;
-			case DELETEONE:
+			case INSERTMANY:
+			case UPDATEMANY:
 			case DELETEMANY:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(84); delete_statements();
+				setState(91); multiple_doc_input_method();
+				setState(92); document_array();
 				}
 				break;
 			case FIND:
+			case INSERT:
+			case UPDATE:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(85); find_statements();
+				setState(94); single_or_multiple_doc_input_method();
+				setState(97);
+				switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
+				case 1:
+					{
+					setState(95); document();
+					}
+					break;
+				case 2:
+					{
+					setState(96); document_array();
+					}
+					break;
+				}
+				}
+				break;
+			case AGGREGATE:
+				enterOuterAlt(_localctx, 5);
+				{
+				setState(99); aggregate_statement();
+				setState(100); parameter();
+				}
+				break;
+			case ID:
+				enterOuterAlt(_localctx, 6);
+				{
+				setState(102); other_methods();
+				setState(103); parameter();
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class ParameterContext extends ParserRuleContext {
+		public TerminalNode COMMAR_CHAR(int i) {
+			return getToken(MONGOParser.COMMAR_CHAR, i);
+		}
+		public TerminalNode CLOSE_ROUND_BRACKET() { return getToken(MONGOParser.CLOSE_ROUND_BRACKET, 0); }
+		public ValueContext value() {
+			return getRuleContext(ValueContext.class,0);
+		}
+		public List<TerminalNode> OPEN_CURLY_BRACKET() { return getTokens(MONGOParser.OPEN_CURLY_BRACKET); }
+		public TerminalNode OPEN_ROUND_BRACKET() { return getToken(MONGOParser.OPEN_ROUND_BRACKET, 0); }
+		public TerminalNode CLOSE_SQUARE_BRACKET() { return getToken(MONGOParser.CLOSE_SQUARE_BRACKET, 0); }
+		public List<TerminalNode> COMMAR_CHAR() { return getTokens(MONGOParser.COMMAR_CHAR); }
+		public List<Json_inputContext> json_input() {
+			return getRuleContexts(Json_inputContext.class);
+		}
+		public TerminalNode OPEN_CURLY_BRACKET(int i) {
+			return getToken(MONGOParser.OPEN_CURLY_BRACKET, i);
+		}
+		public Json_inputContext json_input(int i) {
+			return getRuleContext(Json_inputContext.class,i);
+		}
+		public TerminalNode OPEN_SQUARE_BRACKET() { return getToken(MONGOParser.OPEN_SQUARE_BRACKET, 0); }
+		public List<TerminalNode> CLOSE_CURLY_BRACKET() { return getTokens(MONGOParser.CLOSE_CURLY_BRACKET); }
+		public TerminalNode CLOSE_CURLY_BRACKET(int i) {
+			return getToken(MONGOParser.CLOSE_CURLY_BRACKET, i);
+		}
+		public ParameterContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_parameter; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MONGOParserListener ) ((MONGOParserListener)listener).enterParameter(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MONGOParserListener ) ((MONGOParserListener)listener).exitParameter(this);
+		}
+	}
+
+	public final ParameterContext parameter() throws RecognitionException {
+		ParameterContext _localctx = new ParameterContext(_ctx, getState());
+		enterRule(_localctx, 14, RULE_parameter);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(107); match(OPEN_ROUND_BRACKET);
+			setState(123);
+			switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
+			case 1:
+				{
+				setState(108); value();
+				}
+				break;
+			case 2:
+				{
+				setState(109); json_input();
+				}
+				break;
+			case 3:
+				{
+				setState(110); match(OPEN_SQUARE_BRACKET);
+				setState(111); json_input();
+				setState(112); match(CLOSE_SQUARE_BRACKET);
+				setState(120);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				while (_la==COMMAR_CHAR) {
+					{
+					{
+					setState(113); match(COMMAR_CHAR);
+					setState(114); match(OPEN_CURLY_BRACKET);
+					setState(115); json_input();
+					setState(116); match(CLOSE_CURLY_BRACKET);
+					}
+					}
+					setState(122);
+					_errHandler.sync(this);
+					_la = _input.LA(1);
+				}
+				}
+				break;
+			}
+			setState(125); match(CLOSE_ROUND_BRACKET);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class Other_methodsContext extends ParserRuleContext {
+		public TerminalNode ID() { return getToken(MONGOParser.ID, 0); }
+		public Other_methodsContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_other_methods; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MONGOParserListener ) ((MONGOParserListener)listener).enterOther_methods(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MONGOParserListener ) ((MONGOParserListener)listener).exitOther_methods(this);
+		}
+	}
+
+	public final Other_methodsContext other_methods() throws RecognitionException {
+		Other_methodsContext _localctx = new Other_methodsContext(_ctx, getState());
+		enterRule(_localctx, 16, RULE_other_methods);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(127); match(ID);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class Single_doc_input_methodContext extends ParserRuleContext {
+		public TerminalNode UPDATEONE() { return getToken(MONGOParser.UPDATEONE, 0); }
+		public TerminalNode DELETEONE() { return getToken(MONGOParser.DELETEONE, 0); }
+		public TerminalNode INSERTONE() { return getToken(MONGOParser.INSERTONE, 0); }
+		public Single_doc_input_methodContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_single_doc_input_method; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MONGOParserListener ) ((MONGOParserListener)listener).enterSingle_doc_input_method(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MONGOParserListener ) ((MONGOParserListener)listener).exitSingle_doc_input_method(this);
+		}
+	}
+
+	public final Single_doc_input_methodContext single_doc_input_method() throws RecognitionException {
+		Single_doc_input_methodContext _localctx = new Single_doc_input_methodContext(_ctx, getState());
+		enterRule(_localctx, 18, RULE_single_doc_input_method);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(129);
+			_la = _input.LA(1);
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << INSERTONE) | (1L << UPDATEONE) | (1L << DELETEONE))) != 0)) ) {
+			_errHandler.recoverInline(this);
+			}
+			consume();
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class Multiple_doc_input_methodContext extends ParserRuleContext {
+		public TerminalNode UPDATEMANY() { return getToken(MONGOParser.UPDATEMANY, 0); }
+		public TerminalNode INSERTMANY() { return getToken(MONGOParser.INSERTMANY, 0); }
+		public TerminalNode DELETEMANY() { return getToken(MONGOParser.DELETEMANY, 0); }
+		public Multiple_doc_input_methodContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_multiple_doc_input_method; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MONGOParserListener ) ((MONGOParserListener)listener).enterMultiple_doc_input_method(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MONGOParserListener ) ((MONGOParserListener)listener).exitMultiple_doc_input_method(this);
+		}
+	}
+
+	public final Multiple_doc_input_methodContext multiple_doc_input_method() throws RecognitionException {
+		Multiple_doc_input_methodContext _localctx = new Multiple_doc_input_methodContext(_ctx, getState());
+		enterRule(_localctx, 20, RULE_multiple_doc_input_method);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(131);
+			_la = _input.LA(1);
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << INSERTMANY) | (1L << UPDATEMANY) | (1L << DELETEMANY))) != 0)) ) {
+			_errHandler.recoverInline(this);
+			}
+			consume();
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class Single_or_multiple_doc_input_methodContext extends ParserRuleContext {
+		public TerminalNode UPDATE() { return getToken(MONGOParser.UPDATE, 0); }
+		public TerminalNode FIND() { return getToken(MONGOParser.FIND, 0); }
+		public TerminalNode INSERT() { return getToken(MONGOParser.INSERT, 0); }
+		public Single_or_multiple_doc_input_methodContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_single_or_multiple_doc_input_method; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof MONGOParserListener ) ((MONGOParserListener)listener).enterSingle_or_multiple_doc_input_method(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof MONGOParserListener ) ((MONGOParserListener)listener).exitSingle_or_multiple_doc_input_method(this);
+		}
+	}
+
+	public final Single_or_multiple_doc_input_methodContext single_or_multiple_doc_input_method() throws RecognitionException {
+		Single_or_multiple_doc_input_methodContext _localctx = new Single_or_multiple_doc_input_methodContext(_ctx, getState());
+		enterRule(_localctx, 22, RULE_single_or_multiple_doc_input_method);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(133);
+			_la = _input.LA(1);
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << FIND) | (1L << INSERT) | (1L << UPDATE))) != 0)) ) {
+			_errHandler.recoverInline(this);
+			}
+			consume();
 			}
 		}
 		catch (RecognitionException re) {
@@ -465,99 +789,11 @@ public class MONGOParser extends Parser {
 
 	public final Find_statementsContext find_statements() throws RecognitionException {
 		Find_statementsContext _localctx = new Find_statementsContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_find_statements);
+		enterRule(_localctx, 24, RULE_find_statements);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(88); match(FIND);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class Insert_statementsContext extends ParserRuleContext {
-		public TerminalNode INSERTMANY() { return getToken(MONGOParser.INSERTMANY, 0); }
-		public TerminalNode INSERTONE() { return getToken(MONGOParser.INSERTONE, 0); }
-		public TerminalNode INSERT() { return getToken(MONGOParser.INSERT, 0); }
-		public Insert_statementsContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_insert_statements; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MONGOParserListener ) ((MONGOParserListener)listener).enterInsert_statements(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MONGOParserListener ) ((MONGOParserListener)listener).exitInsert_statements(this);
-		}
-	}
-
-	public final Insert_statementsContext insert_statements() throws RecognitionException {
-		Insert_statementsContext _localctx = new Insert_statementsContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_insert_statements);
-		int _la;
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(90);
-			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << INSERT) | (1L << INSERTONE) | (1L << INSERTMANY))) != 0)) ) {
-			_errHandler.recoverInline(this);
-			}
-			consume();
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class Update_statementsContext extends ParserRuleContext {
-		public TerminalNode UPDATEMANY() { return getToken(MONGOParser.UPDATEMANY, 0); }
-		public TerminalNode UPDATE() { return getToken(MONGOParser.UPDATE, 0); }
-		public TerminalNode UPDATEONE() { return getToken(MONGOParser.UPDATEONE, 0); }
-		public Update_statementsContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_update_statements; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MONGOParserListener ) ((MONGOParserListener)listener).enterUpdate_statements(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MONGOParserListener ) ((MONGOParserListener)listener).exitUpdate_statements(this);
-		}
-	}
-
-	public final Update_statementsContext update_statements() throws RecognitionException {
-		Update_statementsContext _localctx = new Update_statementsContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_update_statements);
-		int _la;
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(92);
-			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << UPDATE) | (1L << UPDATEMANY) | (1L << UPDATEONE))) != 0)) ) {
-			_errHandler.recoverInline(this);
-			}
-			consume();
+			setState(135); match(FIND);
 			}
 		}
 		catch (RecognitionException re) {
@@ -590,12 +826,12 @@ public class MONGOParser extends Parser {
 
 	public final Delete_statementsContext delete_statements() throws RecognitionException {
 		Delete_statementsContext _localctx = new Delete_statementsContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_delete_statements);
+		enterRule(_localctx, 26, RULE_delete_statements);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(94);
+			setState(137);
 			_la = _input.LA(1);
 			if ( !(_la==DELETEONE || _la==DELETEMANY) ) {
 			_errHandler.recoverInline(this);
@@ -641,27 +877,27 @@ public class MONGOParser extends Parser {
 
 	public final Json_inputContext json_input() throws RecognitionException {
 		Json_inputContext _localctx = new Json_inputContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_json_input);
+		enterRule(_localctx, 28, RULE_json_input);
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(96); object();
-			setState(101);
+			setState(139); object();
+			setState(144);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,6,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,7,_ctx);
 			while ( _alt!=1 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1+1 ) {
 					{
 					{
-					setState(97); match(COMMAR_CHAR);
-					setState(98); object();
+					setState(140); match(COMMAR_CHAR);
+					setState(141); object();
 					}
 					} 
 				}
-				setState(103);
+				setState(146);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,6,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,7,_ctx);
 			}
 			}
 		}
@@ -694,11 +930,11 @@ public class MONGOParser extends Parser {
 
 	public final Db_nameContext db_name() throws RecognitionException {
 		Db_nameContext _localctx = new Db_nameContext(_ctx, getState());
-		enterRule(_localctx, 22, RULE_db_name);
+		enterRule(_localctx, 30, RULE_db_name);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(104); match(DB);
+			setState(147); match(DB);
 			}
 		}
 		catch (RecognitionException re) {
@@ -730,11 +966,11 @@ public class MONGOParser extends Parser {
 
 	public final Collection_nameContext collection_name() throws RecognitionException {
 		Collection_nameContext _localctx = new Collection_nameContext(_ctx, getState());
-		enterRule(_localctx, 24, RULE_collection_name);
+		enterRule(_localctx, 32, RULE_collection_name);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(106); match(ID);
+			setState(149); match(ID);
 			}
 		}
 		catch (RecognitionException re) {
@@ -768,11 +1004,11 @@ public class MONGOParser extends Parser {
 
 	public final JsonContext json() throws RecognitionException {
 		JsonContext _localctx = new JsonContext(_ctx, getState());
-		enterRule(_localctx, 26, RULE_json);
+		enterRule(_localctx, 34, RULE_json);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(108); value();
+			setState(151); value();
 			}
 		}
 		catch (RecognitionException re) {
@@ -815,38 +1051,38 @@ public class MONGOParser extends Parser {
 
 	public final ObjectContext object() throws RecognitionException {
 		ObjectContext _localctx = new ObjectContext(_ctx, getState());
-		enterRule(_localctx, 28, RULE_object);
+		enterRule(_localctx, 36, RULE_object);
 		int _la;
 		try {
-			setState(123);
-			switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
+			setState(166);
+			switch ( getInterpreter().adaptivePredict(_input,9,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(110); match(OPEN_CURLY_BRACKET);
-				setState(111); pair();
-				setState(116);
+				setState(153); match(OPEN_CURLY_BRACKET);
+				setState(154); pair();
+				setState(159);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la==COMMAR_CHAR) {
 					{
 					{
-					setState(112); match(COMMAR_CHAR);
-					setState(113); pair();
+					setState(155); match(COMMAR_CHAR);
+					setState(156); pair();
 					}
 					}
-					setState(118);
+					setState(161);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
-				setState(119); match(CLOSE_CURLY_BRACKET);
+				setState(162); match(CLOSE_CURLY_BRACKET);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(121); match(OPEN_CURLY_BRACKET);
-				setState(122); match(CLOSE_CURLY_BRACKET);
+				setState(164); match(OPEN_CURLY_BRACKET);
+				setState(165); match(CLOSE_CURLY_BRACKET);
 				}
 				break;
 			}
@@ -885,19 +1121,19 @@ public class MONGOParser extends Parser {
 
 	public final PairContext pair() throws RecognitionException {
 		PairContext _localctx = new PairContext(_ctx, getState());
-		enterRule(_localctx, 30, RULE_pair);
+		enterRule(_localctx, 38, RULE_pair);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(125);
+			setState(168);
 			_la = _input.LA(1);
 			if ( !(_la==ID || _la==STRING) ) {
 			_errHandler.recoverInline(this);
 			}
 			consume();
-			setState(126); match(ISTO_CHAR);
-			setState(127); value();
+			setState(169); match(ISTO_CHAR);
+			setState(170); value();
 			}
 		}
 		catch (RecognitionException re) {
@@ -940,38 +1176,38 @@ public class MONGOParser extends Parser {
 
 	public final ArrayContext array() throws RecognitionException {
 		ArrayContext _localctx = new ArrayContext(_ctx, getState());
-		enterRule(_localctx, 32, RULE_array);
+		enterRule(_localctx, 40, RULE_array);
 		int _la;
 		try {
-			setState(142);
-			switch ( getInterpreter().adaptivePredict(_input,10,_ctx) ) {
+			setState(185);
+			switch ( getInterpreter().adaptivePredict(_input,11,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(129); match(OPEN_SQUARE_BRACKET);
-				setState(130); value();
-				setState(135);
+				setState(172); match(OPEN_SQUARE_BRACKET);
+				setState(173); value();
+				setState(178);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la==COMMAR_CHAR) {
 					{
 					{
-					setState(131); match(COMMAR_CHAR);
-					setState(132); value();
+					setState(174); match(COMMAR_CHAR);
+					setState(175); value();
 					}
 					}
-					setState(137);
+					setState(180);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
-				setState(138); match(CLOSE_SQUARE_BRACKET);
+				setState(181); match(CLOSE_SQUARE_BRACKET);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(140); match(OPEN_SQUARE_BRACKET);
-				setState(141); match(CLOSE_SQUARE_BRACKET);
+				setState(183); match(OPEN_SQUARE_BRACKET);
+				setState(184); match(CLOSE_SQUARE_BRACKET);
 				}
 				break;
 			}
@@ -988,6 +1224,7 @@ public class MONGOParser extends Parser {
 	}
 
 	public static class ValueContext extends ParserRuleContext {
+		public TerminalNode ID() { return getToken(MONGOParser.ID, 0); }
 		public TerminalNode NULL() { return getToken(MONGOParser.NULL, 0); }
 		public TerminalNode FALSE() { return getToken(MONGOParser.FALSE, 0); }
 		public TerminalNode TRUE() { return getToken(MONGOParser.TRUE, 0); }
@@ -1016,56 +1253,62 @@ public class MONGOParser extends Parser {
 
 	public final ValueContext value() throws RecognitionException {
 		ValueContext _localctx = new ValueContext(_ctx, getState());
-		enterRule(_localctx, 34, RULE_value);
+		enterRule(_localctx, 42, RULE_value);
 		try {
-			setState(152);
+			setState(196);
 			switch (_input.LA(1)) {
 			case STRING:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(144); match(STRING);
+				setState(187); match(STRING);
 				}
 				break;
 			case NUMBER:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(145); match(NUMBER);
+				setState(188); match(NUMBER);
 				}
 				break;
 			case OPEN_CURLY_BRACKET:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(146); object();
+				setState(189); object();
 				}
 				break;
 			case OPEN_SQUARE_BRACKET:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(147); array();
+				setState(190); array();
 				}
 				break;
 			case TRUE:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(148); match(TRUE);
+				setState(191); match(TRUE);
 				}
 				break;
 			case FALSE:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(149); match(FALSE);
+				setState(192); match(FALSE);
 				}
 				break;
 			case NULL:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(150); match(NULL);
+				setState(193); match(NULL);
+				}
+				break;
+			case ID:
+				enterOuterAlt(_localctx, 8);
+				{
+				setState(194); match(ID);
 				}
 				break;
 			case DATE:
-				enterOuterAlt(_localctx, 8);
+				enterOuterAlt(_localctx, 9);
 				{
-				setState(151); match(DATE);
+				setState(195); match(DATE);
 				}
 				break;
 			default:
@@ -1084,50 +1327,67 @@ public class MONGOParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3(\u009d\4\2\t\2\4"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3)\u00c9\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
-		"\4\23\t\23\3\2\3\2\3\3\3\3\3\3\3\3\5\3-\n\3\3\3\3\3\3\3\3\3\5\3\63\n\3"+
-		"\5\3\65\n\3\3\4\3\4\3\4\3\4\3\4\3\4\5\4=\n\4\3\4\3\4\3\5\3\5\3\5\3\5\3"+
-		"\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\7\6N\n\6\f\6\16\6Q\13\6\3\6\3\6\3\7"+
-		"\3\7\3\7\3\7\5\7Y\n\7\3\b\3\b\3\t\3\t\3\n\3\n\3\13\3\13\3\f\3\f\3\f\7"+
-		"\ff\n\f\f\f\16\fi\13\f\3\r\3\r\3\16\3\16\3\17\3\17\3\20\3\20\3\20\3\20"+
-		"\7\20u\n\20\f\20\16\20x\13\20\3\20\3\20\3\20\3\20\5\20~\n\20\3\21\3\21"+
-		"\3\21\3\21\3\22\3\22\3\22\3\22\7\22\u0088\n\22\f\22\16\22\u008b\13\22"+
-		"\3\22\3\22\3\22\3\22\5\22\u0091\n\22\3\23\3\23\3\23\3\23\3\23\3\23\3\23"+
-		"\3\23\5\23\u009b\n\23\3\23\3g\2\24\2\4\6\b\n\f\16\20\22\24\26\30\32\34"+
-		"\36 \"$\2\6\3\2\6\b\3\2\t\13\3\2\f\r\4\2\16\16\34\34\u009e\2&\3\2\2\2"+
-		"\4\64\3\2\2\2\6\66\3\2\2\2\b@\3\2\2\2\nD\3\2\2\2\fX\3\2\2\2\16Z\3\2\2"+
-		"\2\20\\\3\2\2\2\22^\3\2\2\2\24`\3\2\2\2\26b\3\2\2\2\30j\3\2\2\2\32l\3"+
-		"\2\2\2\34n\3\2\2\2\36}\3\2\2\2 \177\3\2\2\2\"\u0090\3\2\2\2$\u009a\3\2"+
-		"\2\2&\'\5\4\3\2\'\3\3\2\2\2()\5\6\4\2),\5\f\7\2*-\5\b\5\2+-\5\n\6\2,*"+
-		"\3\2\2\2,+\3\2\2\2-\65\3\2\2\2./\5\6\4\2/\62\7\16\2\2\60\63\5\b\5\2\61"+
-		"\63\5\n\6\2\62\60\3\2\2\2\62\61\3\2\2\2\63\65\3\2\2\2\64(\3\2\2\2\64."+
-		"\3\2\2\2\65\5\3\2\2\2\66\67\5\30\r\2\678\7\20\2\28<\5\32\16\29:\7\21\2"+
-		"\2:;\7\34\2\2;=\7\22\2\2<9\3\2\2\2<=\3\2\2\2=>\3\2\2\2>?\7\20\2\2?\7\3"+
-		"\2\2\2@A\7\21\2\2AB\5\26\f\2BC\7\22\2\2C\t\3\2\2\2DE\7\21\2\2EF\7\23\2"+
-		"\2FG\5\26\f\2GO\7\24\2\2HI\7\30\2\2IJ\7\25\2\2JK\5\26\f\2KL\7\26\2\2L"+
-		"N\3\2\2\2MH\3\2\2\2NQ\3\2\2\2OM\3\2\2\2OP\3\2\2\2PR\3\2\2\2QO\3\2\2\2"+
-		"RS\7\22\2\2S\13\3\2\2\2TY\5\20\t\2UY\5\22\n\2VY\5\24\13\2WY\5\16\b\2X"+
-		"T\3\2\2\2XU\3\2\2\2XV\3\2\2\2XW\3\2\2\2Y\r\3\2\2\2Z[\7\5\2\2[\17\3\2\2"+
-		"\2\\]\t\2\2\2]\21\3\2\2\2^_\t\3\2\2_\23\3\2\2\2`a\t\4\2\2a\25\3\2\2\2"+
-		"bg\5\36\20\2cd\7\30\2\2df\5\36\20\2ec\3\2\2\2fi\3\2\2\2gh\3\2\2\2ge\3"+
-		"\2\2\2h\27\3\2\2\2ig\3\2\2\2jk\7\4\2\2k\31\3\2\2\2lm\7\16\2\2m\33\3\2"+
-		"\2\2no\5$\23\2o\35\3\2\2\2pq\7\25\2\2qv\5 \21\2rs\7\30\2\2su\5 \21\2t"+
-		"r\3\2\2\2ux\3\2\2\2vt\3\2\2\2vw\3\2\2\2wy\3\2\2\2xv\3\2\2\2yz\7\26\2\2"+
-		"z~\3\2\2\2{|\7\25\2\2|~\7\26\2\2}p\3\2\2\2}{\3\2\2\2~\37\3\2\2\2\177\u0080"+
-		"\t\5\2\2\u0080\u0081\7\27\2\2\u0081\u0082\5$\23\2\u0082!\3\2\2\2\u0083"+
-		"\u0084\7\23\2\2\u0084\u0089\5$\23\2\u0085\u0086\7\30\2\2\u0086\u0088\5"+
-		"$\23\2\u0087\u0085\3\2\2\2\u0088\u008b\3\2\2\2\u0089\u0087\3\2\2\2\u0089"+
-		"\u008a\3\2\2\2\u008a\u008c\3\2\2\2\u008b\u0089\3\2\2\2\u008c\u008d\7\24"+
-		"\2\2\u008d\u0091\3\2\2\2\u008e\u008f\7\23\2\2\u008f\u0091\7\24\2\2\u0090"+
-		"\u0083\3\2\2\2\u0090\u008e\3\2\2\2\u0091#\3\2\2\2\u0092\u009b\7\34\2\2"+
-		"\u0093\u009b\7\35\2\2\u0094\u009b\5\36\20\2\u0095\u009b\5\"\22\2\u0096"+
-		"\u009b\7\31\2\2\u0097\u009b\7\32\2\2\u0098\u009b\7\33\2\2\u0099\u009b"+
-		"\7\37\2\2\u009a\u0092\3\2\2\2\u009a\u0093\3\2\2\2\u009a\u0094\3\2\2\2"+
-		"\u009a\u0095\3\2\2\2\u009a\u0096\3\2\2\2\u009a\u0097\3\2\2\2\u009a\u0098"+
-		"\3\2\2\2\u009a\u0099\3\2\2\2\u009b%\3\2\2\2\16,\62\64<OXgv}\u0089\u0090"+
-		"\u009a";
+		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\3\2\3\2\3\3\3\3\3\3"+
+		"\3\3\7\3\65\n\3\f\3\16\38\13\3\3\4\3\4\3\5\3\5\3\5\3\5\3\5\3\5\5\5B\n"+
+		"\5\3\5\3\5\3\6\3\6\3\6\3\6\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\7\7S\n"+
+		"\7\f\7\16\7V\13\7\3\7\3\7\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\5\b"+
+		"d\n\b\3\b\3\b\3\b\3\b\3\b\3\b\5\bl\n\b\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t"+
+		"\3\t\3\t\3\t\7\ty\n\t\f\t\16\t|\13\t\5\t~\n\t\3\t\3\t\3\n\3\n\3\13\3\13"+
+		"\3\f\3\f\3\r\3\r\3\16\3\16\3\17\3\17\3\20\3\20\3\20\7\20\u0091\n\20\f"+
+		"\20\16\20\u0094\13\20\3\21\3\21\3\22\3\22\3\23\3\23\3\24\3\24\3\24\3\24"+
+		"\7\24\u00a0\n\24\f\24\16\24\u00a3\13\24\3\24\3\24\3\24\3\24\5\24\u00a9"+
+		"\n\24\3\25\3\25\3\25\3\25\3\26\3\26\3\26\3\26\7\26\u00b3\n\26\f\26\16"+
+		"\26\u00b6\13\26\3\26\3\26\3\26\3\26\5\26\u00bc\n\26\3\27\3\27\3\27\3\27"+
+		"\3\27\3\27\3\27\3\27\3\27\5\27\u00c7\n\27\3\27\3\u0092\2\30\2\4\6\b\n"+
+		"\f\16\20\22\24\26\30\32\34\36 \"$&(*,\2\7\4\2\7\7\13\f\5\2\b\b\n\n\r\r"+
+		"\4\2\5\6\t\t\3\2\f\r\4\2\17\17\35\35\u00cb\2.\3\2\2\2\4\60\3\2\2\2\69"+
+		"\3\2\2\2\b;\3\2\2\2\nE\3\2\2\2\fI\3\2\2\2\16k\3\2\2\2\20m\3\2\2\2\22\u0081"+
+		"\3\2\2\2\24\u0083\3\2\2\2\26\u0085\3\2\2\2\30\u0087\3\2\2\2\32\u0089\3"+
+		"\2\2\2\34\u008b\3\2\2\2\36\u008d\3\2\2\2 \u0095\3\2\2\2\"\u0097\3\2\2"+
+		"\2$\u0099\3\2\2\2&\u00a8\3\2\2\2(\u00aa\3\2\2\2*\u00bb\3\2\2\2,\u00c6"+
+		"\3\2\2\2./\5\4\3\2/\3\3\2\2\2\60\61\5\b\5\2\61\66\5\16\b\2\62\63\7\21"+
+		"\2\2\63\65\5\16\b\2\64\62\3\2\2\2\658\3\2\2\2\66\64\3\2\2\2\66\67\3\2"+
+		"\2\2\67\5\3\2\2\28\66\3\2\2\29:\7\16\2\2:\7\3\2\2\2;<\5 \21\2<=\7\21\2"+
+		"\2=A\5\"\22\2>?\7\22\2\2?@\7\35\2\2@B\7\23\2\2A>\3\2\2\2AB\3\2\2\2BC\3"+
+		"\2\2\2CD\7\21\2\2D\t\3\2\2\2EF\7\22\2\2FG\5\36\20\2GH\7\23\2\2H\13\3\2"+
+		"\2\2IJ\7\22\2\2JK\7\24\2\2KL\5\36\20\2LT\7\25\2\2MN\7\31\2\2NO\7\26\2"+
+		"\2OP\5\36\20\2PQ\7\27\2\2QS\3\2\2\2RM\3\2\2\2SV\3\2\2\2TR\3\2\2\2TU\3"+
+		"\2\2\2UW\3\2\2\2VT\3\2\2\2WX\7\23\2\2X\r\3\2\2\2Yl\3\2\2\2Z[\5\24\13\2"+
+		"[\\\5\n\6\2\\l\3\2\2\2]^\5\26\f\2^_\5\f\7\2_l\3\2\2\2`c\5\30\r\2ad\5\n"+
+		"\6\2bd\5\f\7\2ca\3\2\2\2cb\3\2\2\2dl\3\2\2\2ef\5\6\4\2fg\5\20\t\2gl\3"+
+		"\2\2\2hi\5\22\n\2ij\5\20\t\2jl\3\2\2\2kY\3\2\2\2kZ\3\2\2\2k]\3\2\2\2k"+
+		"`\3\2\2\2ke\3\2\2\2kh\3\2\2\2l\17\3\2\2\2m}\7\22\2\2n~\5,\27\2o~\5\36"+
+		"\20\2pq\7\24\2\2qr\5\36\20\2rz\7\25\2\2st\7\31\2\2tu\7\26\2\2uv\5\36\20"+
+		"\2vw\7\27\2\2wy\3\2\2\2xs\3\2\2\2y|\3\2\2\2zx\3\2\2\2z{\3\2\2\2{~\3\2"+
+		"\2\2|z\3\2\2\2}n\3\2\2\2}o\3\2\2\2}p\3\2\2\2~\177\3\2\2\2\177\u0080\7"+
+		"\23\2\2\u0080\21\3\2\2\2\u0081\u0082\7\17\2\2\u0082\23\3\2\2\2\u0083\u0084"+
+		"\t\2\2\2\u0084\25\3\2\2\2\u0085\u0086\t\3\2\2\u0086\27\3\2\2\2\u0087\u0088"+
+		"\t\4\2\2\u0088\31\3\2\2\2\u0089\u008a\7\5\2\2\u008a\33\3\2\2\2\u008b\u008c"+
+		"\t\5\2\2\u008c\35\3\2\2\2\u008d\u0092\5&\24\2\u008e\u008f\7\31\2\2\u008f"+
+		"\u0091\5&\24\2\u0090\u008e\3\2\2\2\u0091\u0094\3\2\2\2\u0092\u0093\3\2"+
+		"\2\2\u0092\u0090\3\2\2\2\u0093\37\3\2\2\2\u0094\u0092\3\2\2\2\u0095\u0096"+
+		"\7\4\2\2\u0096!\3\2\2\2\u0097\u0098\7\17\2\2\u0098#\3\2\2\2\u0099\u009a"+
+		"\5,\27\2\u009a%\3\2\2\2\u009b\u009c\7\26\2\2\u009c\u00a1\5(\25\2\u009d"+
+		"\u009e\7\31\2\2\u009e\u00a0\5(\25\2\u009f\u009d\3\2\2\2\u00a0\u00a3\3"+
+		"\2\2\2\u00a1\u009f\3\2\2\2\u00a1\u00a2\3\2\2\2\u00a2\u00a4\3\2\2\2\u00a3"+
+		"\u00a1\3\2\2\2\u00a4\u00a5\7\27\2\2\u00a5\u00a9\3\2\2\2\u00a6\u00a7\7"+
+		"\26\2\2\u00a7\u00a9\7\27\2\2\u00a8\u009b\3\2\2\2\u00a8\u00a6\3\2\2\2\u00a9"+
+		"\'\3\2\2\2\u00aa\u00ab\t\6\2\2\u00ab\u00ac\7\30\2\2\u00ac\u00ad\5,\27"+
+		"\2\u00ad)\3\2\2\2\u00ae\u00af\7\24\2\2\u00af\u00b4\5,\27\2\u00b0\u00b1"+
+		"\7\31\2\2\u00b1\u00b3\5,\27\2\u00b2\u00b0\3\2\2\2\u00b3\u00b6\3\2\2\2"+
+		"\u00b4\u00b2\3\2\2\2\u00b4\u00b5\3\2\2\2\u00b5\u00b7\3\2\2\2\u00b6\u00b4"+
+		"\3\2\2\2\u00b7\u00b8\7\25\2\2\u00b8\u00bc\3\2\2\2\u00b9\u00ba\7\24\2\2"+
+		"\u00ba\u00bc\7\25\2\2\u00bb\u00ae\3\2\2\2\u00bb\u00b9\3\2\2\2\u00bc+\3"+
+		"\2\2\2\u00bd\u00c7\7\35\2\2\u00be\u00c7\7\36\2\2\u00bf\u00c7\5&\24\2\u00c0"+
+		"\u00c7\5*\26\2\u00c1\u00c7\7\32\2\2\u00c2\u00c7\7\33\2\2\u00c3\u00c7\7"+
+		"\34\2\2\u00c4\u00c7\7\17\2\2\u00c5\u00c7\7 \2\2\u00c6\u00bd\3\2\2\2\u00c6"+
+		"\u00be\3\2\2\2\u00c6\u00bf\3\2\2\2\u00c6\u00c0\3\2\2\2\u00c6\u00c1\3\2"+
+		"\2\2\u00c6\u00c2\3\2\2\2\u00c6\u00c3\3\2\2\2\u00c6\u00c4\3\2\2\2\u00c6"+
+		"\u00c5\3\2\2\2\u00c7-\3\2\2\2\17\66ATckz}\u0092\u00a1\u00a8\u00b4\u00bb"+
+		"\u00c6";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
