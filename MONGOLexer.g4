@@ -77,6 +77,7 @@ AGGREGATE
 :
 	'aggregate'
 ;
+
 BULKWRITE
 :
 	'bulkWrite'
@@ -87,6 +88,32 @@ TEXT
 :
 	ALPHA_LITERAL
 ;
+ADMINCOMMAND
+:
+	'adminCommand'
+;
+CLONECOLLECTION
+:
+	'cloneCollection'
+;
+CLONEDATABASE
+:
+	'cloneDatabase'
+;
+COPYDATABASE
+:
+	'copyDatabase'
+;
+CREATEVIEW
+:
+	'createView'
+;
+CURRENTOP
+:
+	'currentOp'
+;
+// Identifiers
+
 
 
 // Charsets
@@ -141,7 +168,9 @@ COMMAR_CHAR
 :
 	','
 ;
-
+BOOLEAN
+:(TRUE|FALSE)
+;
 TRUE
 :
 	'true'
