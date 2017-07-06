@@ -8,16 +8,6 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface MONGOParserListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link MONGOParser#delete_statements}.
-	 * @param ctx the parse tree
-	 */
-	void enterDelete_statements(@NotNull MONGOParser.Delete_statementsContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MONGOParser#delete_statements}.
-	 * @param ctx the parse tree
-	 */
-	void exitDelete_statements(@NotNull MONGOParser.Delete_statementsContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link MONGOParser#document}.
 	 * @param ctx the parse tree
 	 */
@@ -28,15 +18,15 @@ public interface MONGOParserListener extends ParseTreeListener {
 	 */
 	void exitDocument(@NotNull MONGOParser.DocumentContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MONGOParser#find_statements}.
+	 * Enter a parse tree produced by {@link MONGOParser#operations_input_method_input}.
 	 * @param ctx the parse tree
 	 */
-	void enterFind_statements(@NotNull MONGOParser.Find_statementsContext ctx);
+	void enterOperations_input_method_input(@NotNull MONGOParser.Operations_input_method_inputContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MONGOParser#find_statements}.
+	 * Exit a parse tree produced by {@link MONGOParser#operations_input_method_input}.
 	 * @param ctx the parse tree
 	 */
-	void exitFind_statements(@NotNull MONGOParser.Find_statementsContext ctx);
+	void exitOperations_input_method_input(@NotNull MONGOParser.Operations_input_method_inputContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MONGOParser#other_methods}.
 	 * @param ctx the parse tree
@@ -177,6 +167,36 @@ public interface MONGOParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIntialQuerry(@NotNull MONGOParser.IntialQuerryContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MONGOParser#operations_input_method}.
+	 * @param ctx the parse tree
+	 */
+	void enterOperations_input_method(@NotNull MONGOParser.Operations_input_methodContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MONGOParser#operations_input_method}.
+	 * @param ctx the parse tree
+	 */
+	void exitOperations_input_method(@NotNull MONGOParser.Operations_input_methodContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MONGOParser#query_statements}.
+	 * @param ctx the parse tree
+	 */
+	void enterQuery_statements(@NotNull MONGOParser.Query_statementsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MONGOParser#query_statements}.
+	 * @param ctx the parse tree
+	 */
+	void exitQuery_statements(@NotNull MONGOParser.Query_statementsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MONGOParser#cursor_methods}.
+	 * @param ctx the parse tree
+	 */
+	void enterCursor_methods(@NotNull MONGOParser.Cursor_methodsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MONGOParser#cursor_methods}.
+	 * @param ctx the parse tree
+	 */
+	void exitCursor_methods(@NotNull MONGOParser.Cursor_methodsContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MONGOParser#aggregate_statement}.
 	 * @param ctx the parse tree
