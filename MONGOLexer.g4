@@ -31,48 +31,48 @@ FIND
 :	F I N D
 ;
 
-INSERT
+INSERT  
 :
-	I N S E R T
+	'insert'
 ;
 
 INSERTONE
 :
-	I N S E R T O N E
+	'insertOne'
 ;
 
 INSERTMANY
 :
-	I N S E R T M A N Y
+	'insertMany'
 ;
 
 UPDATE
 :
-	U P D A T E
+	'update'
 ;
 
 UPDATEMANY
 :
-	U P D A T E M A N Y
+	'updateMany'
 ;
 
 UPDATEONE
 :
-	U P D A T E O N E
+	'updateOne'
 ;
 
 DELETEONE
 :
-	D E L E T E O N E
+	'deleteOne'
 ;
 
 DELETEMANY
 :
-	D E L E T E M A N Y
+	'deleteMany'
 ;
 AGGREGATE
 :
-	A G G R E G A T E
+	'aggregate'
 ;
 // Identifiers
 
@@ -242,13 +242,14 @@ fragment
 ALPHA_LITERAL
 :
 	(
-		[_$]? [a-zA-Z_0-9]*
+		[_$]? [a-zA-Z_0-9]+
 	)
 ;
 fragment 
 ALPHABETS
 : [a-zA-z]
 ;
+
 
 fragment
 HEX_DIGIT

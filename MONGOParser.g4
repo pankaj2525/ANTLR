@@ -11,23 +11,11 @@ mongo_statements
 
 mongo_statement
 :
-	intialQuerry dml_statement
-	(
-		type1
-		| type2
-	)
-	| intialQuerry aggregate_statement
-	(
-		type1
-		| type2
-	)
-	| intialQuerry ID
-	(
-		type1
-		| type2
-	)
+	intialQuerry collection_methods (DOT  collection_methods)*
 	
 ;
+
+
 
 aggregate_statement
 :
@@ -42,12 +30,12 @@ intialQuerry
 	)? DOT
 ;
 
-type1
+document
 :
 	OPEN_ROUND_BRACKET json_input CLOSE_ROUND_BRACKET
 ;
 
-type2
+document_array
 :
 	OPEN_ROUND_BRACKET OPEN_SQUARE_BRACKET json_input CLOSE_SQUARE_BRACKET
 	(
@@ -55,31 +43,60 @@ type2
 	)* CLOSE_ROUND_BRACKET
 ;
 
-dml_statement
+collection_methods
 :
-	insert_statements
-	| update_statements
-	| delete_statements
-	| find_statements
+	| single_doc_input_method document
+	| multiple_doc_input_method document_array
+	| single_or_multiple_doc_input_method
+	(
+		document
+		| document_array
+	)
+	| aggregate_statement parameter
+	| other_methods parameter
+;
+
+parameter
+:
+	OPEN_ROUND_BRACKET
+	(
+		value
+		| json_input
+		| OPEN_SQUARE_BRACKET json_input CLOSE_SQUARE_BRACKET
+		(
+			COMMAR_CHAR OPEN_CURLY_BRACKET json_input CLOSE_CURLY_BRACKET
+		)*
+	) CLOSE_ROUND_BRACKET
+;
+
+other_methods
+: ID
+;
+
+single_doc_input_method
+:
+	INSERTONE
+	| UPDATEONE
+	| DELETEONE
+;
+
+multiple_doc_input_method
+:
+	INSERTMANY
+	| UPDATEMANY
+	| DELETEMANY
+;
+
+single_or_multiple_doc_input_method
+:
+	FIND
+	| INSERT
+	| UPDATE
 ;
 
 find_statements
 :
 	FIND
-;
-
-insert_statements
-:
-	INSERT
-	| INSERTMANY
-	| INSERTONE
-;
-
-update_statements
-:
-	UPDATEONE
-	| UPDATEMANY
-	| UPDATE
 ;
 
 delete_statements
@@ -153,6 +170,7 @@ value
 	| TRUE
 	| FALSE
 	| NULL
+	| ID
 	| DATE
 ;
 

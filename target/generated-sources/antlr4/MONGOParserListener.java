@@ -18,35 +18,15 @@ public interface MONGOParserListener extends ParseTreeListener {
 	 */
 	void exitDelete_statements(@NotNull MONGOParser.Delete_statementsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MONGOParser#type2}.
+	 * Enter a parse tree produced by {@link MONGOParser#document}.
 	 * @param ctx the parse tree
 	 */
-	void enterType2(@NotNull MONGOParser.Type2Context ctx);
+	void enterDocument(@NotNull MONGOParser.DocumentContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MONGOParser#type2}.
+	 * Exit a parse tree produced by {@link MONGOParser#document}.
 	 * @param ctx the parse tree
 	 */
-	void exitType2(@NotNull MONGOParser.Type2Context ctx);
-	/**
-	 * Enter a parse tree produced by {@link MONGOParser#insert_statements}.
-	 * @param ctx the parse tree
-	 */
-	void enterInsert_statements(@NotNull MONGOParser.Insert_statementsContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MONGOParser#insert_statements}.
-	 * @param ctx the parse tree
-	 */
-	void exitInsert_statements(@NotNull MONGOParser.Insert_statementsContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link MONGOParser#update_statements}.
-	 * @param ctx the parse tree
-	 */
-	void enterUpdate_statements(@NotNull MONGOParser.Update_statementsContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MONGOParser#update_statements}.
-	 * @param ctx the parse tree
-	 */
-	void exitUpdate_statements(@NotNull MONGOParser.Update_statementsContext ctx);
+	void exitDocument(@NotNull MONGOParser.DocumentContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MONGOParser#find_statements}.
 	 * @param ctx the parse tree
@@ -58,15 +38,15 @@ public interface MONGOParserListener extends ParseTreeListener {
 	 */
 	void exitFind_statements(@NotNull MONGOParser.Find_statementsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MONGOParser#type1}.
+	 * Enter a parse tree produced by {@link MONGOParser#other_methods}.
 	 * @param ctx the parse tree
 	 */
-	void enterType1(@NotNull MONGOParser.Type1Context ctx);
+	void enterOther_methods(@NotNull MONGOParser.Other_methodsContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MONGOParser#type1}.
+	 * Exit a parse tree produced by {@link MONGOParser#other_methods}.
 	 * @param ctx the parse tree
 	 */
-	void exitType1(@NotNull MONGOParser.Type1Context ctx);
+	void exitOther_methods(@NotNull MONGOParser.Other_methodsContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MONGOParser#pair}.
 	 * @param ctx the parse tree
@@ -78,6 +58,26 @@ public interface MONGOParserListener extends ParseTreeListener {
 	 */
 	void exitPair(@NotNull MONGOParser.PairContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link MONGOParser#single_doc_input_method}.
+	 * @param ctx the parse tree
+	 */
+	void enterSingle_doc_input_method(@NotNull MONGOParser.Single_doc_input_methodContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MONGOParser#single_doc_input_method}.
+	 * @param ctx the parse tree
+	 */
+	void exitSingle_doc_input_method(@NotNull MONGOParser.Single_doc_input_methodContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MONGOParser#single_or_multiple_doc_input_method}.
+	 * @param ctx the parse tree
+	 */
+	void enterSingle_or_multiple_doc_input_method(@NotNull MONGOParser.Single_or_multiple_doc_input_methodContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MONGOParser#single_or_multiple_doc_input_method}.
+	 * @param ctx the parse tree
+	 */
+	void exitSingle_or_multiple_doc_input_method(@NotNull MONGOParser.Single_or_multiple_doc_input_methodContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MONGOParser#db_name}.
 	 * @param ctx the parse tree
 	 */
@@ -87,6 +87,16 @@ public interface MONGOParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitDb_name(@NotNull MONGOParser.Db_nameContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MONGOParser#multiple_doc_input_method}.
+	 * @param ctx the parse tree
+	 */
+	void enterMultiple_doc_input_method(@NotNull MONGOParser.Multiple_doc_input_methodContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MONGOParser#multiple_doc_input_method}.
+	 * @param ctx the parse tree
+	 */
+	void exitMultiple_doc_input_method(@NotNull MONGOParser.Multiple_doc_input_methodContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MONGOParser#array}.
 	 * @param ctx the parse tree
@@ -98,15 +108,35 @@ public interface MONGOParserListener extends ParseTreeListener {
 	 */
 	void exitArray(@NotNull MONGOParser.ArrayContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MONGOParser#dml_statement}.
+	 * Enter a parse tree produced by {@link MONGOParser#parameter}.
 	 * @param ctx the parse tree
 	 */
-	void enterDml_statement(@NotNull MONGOParser.Dml_statementContext ctx);
+	void enterParameter(@NotNull MONGOParser.ParameterContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link MONGOParser#dml_statement}.
+	 * Exit a parse tree produced by {@link MONGOParser#parameter}.
 	 * @param ctx the parse tree
 	 */
-	void exitDml_statement(@NotNull MONGOParser.Dml_statementContext ctx);
+	void exitParameter(@NotNull MONGOParser.ParameterContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MONGOParser#document_array}.
+	 * @param ctx the parse tree
+	 */
+	void enterDocument_array(@NotNull MONGOParser.Document_arrayContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MONGOParser#document_array}.
+	 * @param ctx the parse tree
+	 */
+	void exitDocument_array(@NotNull MONGOParser.Document_arrayContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MONGOParser#collection_methods}.
+	 * @param ctx the parse tree
+	 */
+	void enterCollection_methods(@NotNull MONGOParser.Collection_methodsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MONGOParser#collection_methods}.
+	 * @param ctx the parse tree
+	 */
+	void exitCollection_methods(@NotNull MONGOParser.Collection_methodsContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MONGOParser#json}.
 	 * @param ctx the parse tree
