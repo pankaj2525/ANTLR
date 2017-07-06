@@ -28,7 +28,7 @@ DB
 	D B
 ;
 FIND
-:	F I N D
+:	'find'
 ;
 
 INSERT  
@@ -65,7 +65,10 @@ DELETEONE
 :
 	'deleteOne'
 ;
-
+REPLACEONE
+:
+	'replaceOne'
+;
 DELETEMANY
 :
 	'deleteMany'
@@ -74,9 +77,13 @@ AGGREGATE
 :
 	'aggregate'
 ;
+BULKWRITE
+:
+	'bulkWrite'
+;
 // Identifiers
 
-ID
+TEXT
 :
 	ALPHA_LITERAL
 ;

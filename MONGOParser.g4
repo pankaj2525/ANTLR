@@ -11,11 +11,19 @@ mongo_statements
 
 mongo_statement
 :
-	intialQuerry collection_methods (DOT  collection_methods)*
-	
+	intialQuerry
+	(
+		collection_methods
+	)
+	(
+		DOT collection_methods
+	)*
 ;
 
-
+cursor_methods
+:
+	TEXT OPEN_ROUND_BRACKET CLOSE_ROUND_BRACKET
+;
 
 aggregate_statement
 :
@@ -53,7 +61,57 @@ collection_methods
 		| document_array
 	)
 	| aggregate_statement parameter
+	| query_statements (
+		document
+		| document_array
+		| parameter
+	) (
+		DOT cursor_methods
+	)*
+	| operations_input_method operations_input_method_input
 	| other_methods parameter
+;
+
+operations_input_method_input
+:
+	OPEN_ROUND_BRACKET OPEN_SQUARE_BRACKET
+	OPEN_CURLY_BRACKET
+		(
+			INSERTONE
+			| UPDATEONE
+			| UPDATEMANY
+			| REPLACEONE
+			| DELETEONE
+			| DELETEMANY
+		) ISTO_CHAR value CLOSE_CURLY_BRACKET
+	(
+		COMMAR_CHAR OPEN_CURLY_BRACKET
+		(
+			INSERTONE
+			| UPDATEONE
+			| UPDATEMANY
+			| REPLACEONE
+			| DELETEONE
+			| DELETEMANY
+		) ISTO_CHAR value CLOSE_CURLY_BRACKET
+	)* CLOSE_SQUARE_BRACKET CLOSE_ROUND_BRACKET
+	| OPEN_ROUND_BRACKET
+	(
+		OPEN_CURLY_BRACKET
+		(
+			INSERTONE
+			| UPDATEONE
+			| UPDATEMANY
+			| REPLACEONE
+			| DELETEONE
+			| DELETEMANY
+		) ISTO_CHAR value CLOSE_CURLY_BRACKET
+	) CLOSE_ROUND_BRACKET
+;
+
+operations_input_method
+:
+	BULKWRITE
 ;
 
 parameter
@@ -66,11 +124,12 @@ parameter
 		(
 			COMMAR_CHAR OPEN_CURLY_BRACKET json_input CLOSE_CURLY_BRACKET
 		)*
-	) CLOSE_ROUND_BRACKET
+	)* CLOSE_ROUND_BRACKET
 ;
 
 other_methods
-: ID
+:
+	TEXT
 ;
 
 single_doc_input_method
@@ -89,21 +148,15 @@ multiple_doc_input_method
 
 single_or_multiple_doc_input_method
 :
-	FIND
-	| INSERT
+	INSERT
 	| UPDATE
 ;
 
-find_statements
+query_statements
 :
 	FIND
 ;
 
-delete_statements
-:
-	DELETEONE
-	| DELETEMANY
-;
 
 json_input
 :
@@ -127,7 +180,7 @@ db_name
 
 collection_name
 :
-	ID
+	TEXT
 ;
 
 json
@@ -148,7 +201,7 @@ pair
 :
 	(
 		STRING
-		| ID
+		| TEXT
 	) ISTO_CHAR value
 ;
 
@@ -170,7 +223,7 @@ value
 	| TRUE
 	| FALSE
 	| NULL
-	| ID
+	| TEXT
 	| DATE
 ;
 
