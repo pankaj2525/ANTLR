@@ -11,6 +11,7 @@ mongo_statements
 
 mongo_statement
 :
+
 	intialQuerry
 	(
 		collection_methods
@@ -18,6 +19,10 @@ mongo_statement
 	(
 		DOT collection_methods
 	)*
+
+	intialQuerry collection_methods (DOT  collection_methods)*
+	|db_name DOT  database_methods
+
 ;
 
 cursor_methods
@@ -36,6 +41,7 @@ intialQuerry
 	(
 		OPEN_ROUND_BRACKET STRING CLOSE_ROUND_BRACKET
 	)? DOT
+	|db_name DOT 
 ;
 
 document
@@ -50,6 +56,18 @@ document_array
 		COMMAR_CHAR OPEN_CURLY_BRACKET json_input CLOSE_CURLY_BRACKET
 	)* CLOSE_ROUND_BRACKET
 ;
+database_methods
+:
+(
+	db_string_or_doc_input_method params_string_or_doc
+	| db_string_doc_input_method params_string_string_doc
+	| db_string_input_method params_string
+	| db_strings_input_method params_strings
+	| db_strings_array_doc_input_method params_strings_array_doc
+	| db_boolean_or_doc_input_method params_boolean_or_doc
+)
+;
+
 
 collection_methods
 :
@@ -114,6 +132,50 @@ operations_input_method
 	BULKWRITE
 ;
 
+
+params_string_or_doc
+:
+OPEN_ROUND_BRACKET
+(
+	STRING
+	| object
+) CLOSE_ROUND_BRACKET
+;
+params_string
+:
+OPEN_ROUND_BRACKET
+(
+	STRING
+) CLOSE_ROUND_BRACKET
+;
+params_string_string_doc
+:
+OPEN_ROUND_BRACKET STRING COMMAR_CHAR STRING
+(
+	COMMAR_CHAR object
+)? CLOSE_ROUND_BRACKET
+;
+params_strings
+:
+OPEN_ROUND_BRACKET
+STRING COMMAR_CHAR STRING (COMMAR_CHAR STRING)?(COMMAR_CHAR STRING)?(COMMAR_CHAR STRING)?(COMMAR_CHAR STRING)?
+CLOSE_ROUND_BRACKET
+;
+params_strings_array_doc
+:
+OPEN_ROUND_BRACKET
+STRING COMMAR_CHAR STRING array (COMMAR_CHAR object)?
+CLOSE_ROUND_BRACKET
+;
+params_boolean_or_doc
+:
+OPEN_ROUND_BRACKET
+(
+	BOOLEAN
+	| object
+) CLOSE_ROUND_BRACKET
+;
+
 parameter
 :
 	OPEN_ROUND_BRACKET
@@ -131,7 +193,26 @@ other_methods
 :
 	TEXT
 ;
-
+db_string_or_doc_input_method:
+ADMINCOMMAND	
+;
+db_string_doc_input_method:
+CLONECOLLECTION	
+;
+db_string_input_method:
+CLONEDATABASE	
+;
+db_strings_input_method:
+COPYDATABASE	
+;
+db_strings_array_doc_input_method
+:
+CREATEVIEW
+;
+db_boolean_or_doc_input_method
+:
+CURRENTOP
+;
 single_doc_input_method
 :
 	INSERTONE
