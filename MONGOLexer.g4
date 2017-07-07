@@ -22,7 +22,10 @@ SPACE
 
 // Keywords
 // Common Keywords
-
+FUNCTION
+:
+K_FUNCTION
+;
 DB
 :
 	D B
@@ -82,11 +85,10 @@ BULKWRITE
 :
 	'bulkWrite'
 ;
-// Identifiers
 
-TEXT
+FN_ARG_VAL
 :
-	ALPHA_LITERAL
+NUMBER|BOOLEAN|STRING
 ;
 ADMINCOMMAND
 :
@@ -112,7 +114,23 @@ CURRENTOP
 :
 	'currentOp'
 ;
+DROPDATABASE
+:
+	'dropDatabase'
+;
+EVAL
+:
+	'eval'
+;
 // Identifiers
+ALPHA
+:
+	ALPHABETS
+;
+TEXT
+:
+	ALPHA_LITERAL
+;
 
 
 
@@ -167,6 +185,9 @@ ISTO_CHAR
 COMMAR_CHAR
 :
 	','
+;
+EQUAL_TO
+:'='
 ;
 BOOLEAN
 :(TRUE|FALSE)
@@ -283,7 +304,7 @@ ALPHA_LITERAL
 ;
 fragment 
 ALPHABETS
-: [a-zA-z]
+: [a-zA-z]+
 ;
 
 
@@ -486,4 +507,8 @@ fragment
 EXP
 :
 	[Ee] [+\-]? INT_NO
+;
+fragment
+K_FUNCTION:
+'function'
 ;

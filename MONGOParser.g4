@@ -4,22 +4,13 @@ options {
 	tokenVocab = MONGOLexer;
 }
 
+
 mongo_statements
 :
 	mongo_statement
 ;
-
 mongo_statement
 :
-
-	intialQuerry
-	(
-		collection_methods
-	)
-	(
-		DOT collection_methods
-	)*
-
 	intialQuerry collection_methods (DOT  collection_methods)*
 	|db_name DOT  database_methods
 
@@ -65,6 +56,9 @@ database_methods
 	| db_strings_input_method params_strings
 	| db_strings_array_doc_input_method params_strings_array_doc
 	| db_boolean_or_doc_input_method params_boolean_or_doc
+	| db_no_arg_input_method params_no_arg
+	| db_javascriptfn_args_input_method params_jsfunction_args
+	
 )
 ;
 
@@ -88,6 +82,22 @@ collection_methods
 	)*
 	| operations_input_method operations_input_method_input
 	| other_methods parameter
+;
+methodDeclaration
+:
+FUNCTION formalParameters
+(OPEN_CURLY_BRACKET
+.*?
+CLOSE_CURLY_BRACKET
+
+)
+;
+formalParameters
+    :   OPEN_ROUND_BRACKET (formalParameterList)? CLOSE_ROUND_BRACKET
+    ;
+formalParameterList
+:
+ALPHA (EQUAL_TO FN_ARG_VAL )? ( COMMAR_CHAR ALPHA (EQUAL_TO FN_ARG_VAL )?)* 
 ;
 
 operations_input_method_input
@@ -175,7 +185,17 @@ OPEN_ROUND_BRACKET
 	| object
 ) CLOSE_ROUND_BRACKET
 ;
-
+params_no_arg
+:
+OPEN_ROUND_BRACKET
+CLOSE_ROUND_BRACKET
+;
+params_jsfunction_args
+:
+OPEN_ROUND_BRACKET
+methodDeclaration (COMMAR_CHAR (FN_ARG_VAL))
+CLOSE_ROUND_BRACKET
+;
 parameter
 :
 	OPEN_ROUND_BRACKET
@@ -212,6 +232,14 @@ CREATEVIEW
 db_boolean_or_doc_input_method
 :
 CURRENTOP
+;
+db_no_arg_input_method
+:
+DROPDATABASE
+;
+db_javascriptfn_args_input_method
+:
+EVAL
 ;
 single_doc_input_method
 :
